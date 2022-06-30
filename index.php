@@ -1,12 +1,21 @@
 <?php
-if(isset($_POST['logfield']) || isset($_POST['passfield']) ){
+###################################################
+#  Este script tem o único propósido de em caso   #
+#  de o usuário procurar navegar pela intranet,   #
+#  ele chegar em uma página aparentemente válida  #
+#  de um sistema. Com login, e senha              #
+###################################################
 
+if(isset($_POST['logfield']) || isset($_POST['passfield']) ){
+  
+  /*Recebe login e senha preenchidos e informa que houve erro. Claro, não existe um sistema de validação de logins*/
   $message="<p class='rederror'>Login ou senha incorretos</p>";
 
 }else{
   $message="";
 }
 
+/*Um pouco de html*/
 ?>
 <!DOCTYPE html>
 <html lang="en">
