@@ -13,6 +13,13 @@
 $current_time = time();
 $date=date('Y-m-d H:i:s', $current_time);
 
+
+/* customize estes dados */
+define("to_emailaddress","seuemail@aqui.com");
+define("from_emailaddress","emaildeseuservidor@email.com");
+define("fakecompany","Nome de uma empresa fictícia");
+
+
 /* função que envia email */
 function custom_mailer($to_address,$from_address,$bcc,$subject,$message){
 	$headers = "From: $from_address\r\nX-Mailer: php\r\n";
@@ -87,8 +94,8 @@ function sendcontact(){
 	if( isset($_POST['name']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['message']) && $_POST['name'] != "" && $_POST['email'] != "" && $_POST['subject'] != "" && $_POST['message'] != ""){
 		$message="Contato enviado pelo site<br> Nome: ".$_POST['name']."<br> Email: ".$_POST['email']."<br> Mensagem:<hr>".$_POST['message'];
 
-		if(custom_mailer("davidmarquesbv@gmail.com","no-reply@segproptect.com.br","","Contato pelo site - ".$_POST['subject'],$message)){
-			custom_mailer($_POST['email'],"no-reply@segproptect.com.br","","Obrigado por entrar em contato 😃","<h1>Obrigado, ".$_POST['name']."! </h1>Você é importante para nós. Entraremos em contato assim que possível.");
+		if(custom_mailer(to_emailaddress,from_emailaddress,"","Contato pelo site - ".$_POST['subject'],$message)){
+			custom_mailer($_POST['email'],from_emailaddress,"","Obrigado por entrar em contato 😃","<h1>Obrigado, ".$_POST['name']."! </h1>Você é importante para nós. Entraremos em contato assim que possível.");
 			return(true);
 		}else{
 			return(false);
@@ -98,13 +105,11 @@ function sendcontact(){
 	}
 }
 
-
-
 function sendnews(){
 	if( isset($_POST['email']) && $_POST['email']!="" ){
 
-		if(custom_mailer("davidmarquesbv@gmail.com","no-reply@segproptect.com.br","","Newsletter preenchido - ".$_POST['email'],"Assinou newsletter")){
-			custom_mailer($_POST['email'],"no-reply@segproptect.com.br","","Newsletter SegProtect 😃","<h1>Obrigado!</h1>Você agora está incluído em nossa newsletter.");
+		if(custom_mailer(to_emailaddress,from_emailaddress,"","Newsletter preenchido - ".$_POST['email'],"Assinou newsletter")){
+			custom_mailer($_POST['email'],from_emailaddress,"","Newsletter ".fakecompany." 😃","<h1>Obrigado!</h1>Você agora está incluído em nossa newsletter.");
 			return(true);
 		}else{
 			return(false);
