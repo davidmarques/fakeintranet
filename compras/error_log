@@ -1,0 +1,18 @@
+[26-May-2022 23:51:01 America/Fortaleza] PHP Warning:  file_get_contents(./OC97248768BR.data): failed to open stream: No such file or directory in /home2/octocm09/public_html/intranet/compras/index.php on line 57
+[26-May-2022 23:51:05 America/Fortaleza] PHP Warning:  file_get_contents(./OC97248768BR.data): failed to open stream: No such file or directory in /home2/octocm09/public_html/intranet/compras/index.php on line 57
+[26-May-2022 23:55:17 America/Fortaleza] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home2/octocm09/public_html/intranet/compras/index.php on line 331
+[26-May-2022 23:55:22 America/Fortaleza] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home2/octocm09/public_html/intranet/compras/index.php on line 331
+[26-May-2022 23:56:54 America/Fortaleza] PHP Parse error:  syntax error, unexpected '}', expecting end of file in /home2/octocm09/public_html/intranet/compras/index.php on line 332
+[27-May-2022 00:10:23 America/Fortaleza] PHP Parse error:  syntax error, unexpected '}' in /home2/octocm09/public_html/intranet/compras/index.php on line 63
+[27-May-2022 00:11:00 America/Fortaleza] PHP Fatal error:  Uncaught Error: Cannot use object of type stdClass as array in /home2/octocm09/public_html/intranet/compras/index.php:61
+Stack trace:
+#0 /home2/octocm09/public_html/intranet/compras/index.php(41): payanalize('{"type":"pix","...')
+#1 {main}
+  thrown in /home2/octocm09/public_html/intranet/compras/index.php on line 61
+[27-May-2022 00:11:02 America/Fortaleza] PHP Fatal error:  Uncaught Error: Cannot use object of type stdClass as array in /home2/octocm09/public_html/intranet/compras/index.php:61
+Stack trace:
+#0 /home2/octocm09/public_html/intranet/compras/index.php(41): payanalize('{"type":"pix","...')
+#1 {main}
+  thrown in /home2/octocm09/public_html/intranet/compras/index.php on line 61
+[27-May-2022 01:21:03 America/Fortaleza] PHP Warning:  str_split() expects parameter 2 to be int, string given in /home2/octocm09/public_html/intranet/compras/index.php on line 621
+[27-May-2022 01:21:09 America/Fortaleza] PHP Warning:  str_split() expects parameter 2 to be int, string given in /home2/octocm09/public_html/intranet/compras/index.php on line 621
