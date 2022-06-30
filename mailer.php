@@ -1,8 +1,19 @@
 <?php
+###################################################
+#  Este script, quando recebe certas queryes,     #
+#  envia email para o endereço configurado aqui.  #
+#  Ele pode enviar: IPs, geolocalização e mensa-  #
+#  gens para email. Sim, se precisar colocar um   #
+#  formulário de contato que realmente envia em-  #
+#  ails, pode fazer seu formulário conversar com  #
+#  este script.                                   #
+###################################################
+
+/* Obtendo data e hora */
 $current_time = time();
 $date=date('Y-m-d H:i:s', $current_time);
 
-
+/* função que envia email */
 function custom_mailer($to_address,$from_address,$bcc,$subject,$message){
 	$headers = "From: $from_address\r\nX-Mailer: php\r\n";
 	$headers .= "MIME-Version: 1.0\r\n";
@@ -21,16 +32,22 @@ function custom_mailer($to_address,$from_address,$bcc,$subject,$message){
 
 }
 
-
+/* uma array que receberá as respostas a serem enviadas a formulários */
 $toreturn=Array();
 $success=false;
 $tag="";
+
+/* A query tag pode ser qualquer coisa que você queira enviar, seja um IP ou geolocalização *?
 if(isset($_GET['tag'])){
-
 	$tag=$_GET['tag'];
-
 }
 
+/* a query action , recebe alguma ação que você quiser que o script execute */
+/* pode ser:
+[contact] para receber mensagens de um formulário,
+[newsletter] para receber um nome e email,
+[track] para enviar um IP
+e [locale] para enviar localização */
 
 if(isset($_GET['action'])){
 
@@ -56,13 +73,16 @@ if(isset($_GET['action'])){
 	}
 	$toreturn['success']=$success;
 }
+/* exibe uma resposta json que poderá ser consumida por algum recurso ajax */
+/* esta resposta, só é exibida quando a ação NÃO for track */
+
 if($action!="track" && $action!=""){
 echo json_encode($toreturn);
 }
 
 
 
-
+/* função para lidar com envio de emails */
 function sendcontact(){
 	if( isset($_POST['name']) && isset($_POST['email']) && isset($_POST['subject']) && isset($_POST['message']) && $_POST['name'] != "" && $_POST['email'] != "" && $_POST['subject'] != "" && $_POST['message'] != ""){
 		$message="Contato enviado pelo site<br> Nome: ".$_POST['name']."<br> Email: ".$_POST['email']."<br> Mensagem:<hr>".$_POST['message'];
